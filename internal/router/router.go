@@ -13,6 +13,7 @@ func SetupRouter() *gin.Engine {
 		api.GET("/students", handler.GetStudents)
 		api.GET("/students/:roll_number", handler.GetStudentByRollNumber)
 		api.POST("/students", handler.AddStudent)
+		api.DELETE("/students/:roll_number", handler.DeleteStudentByRollNumber)
 
 	}
 

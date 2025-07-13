@@ -55,3 +55,24 @@ func AddStudent(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Student created", "id": id})
 }
+
+func DeleteStudentByRollNumber(c *gin.Context) {
+	rollNumberStr := c.Param("roll_number")
+	rollNumber, err := strconv.Atoi(rollNumberStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid roll number"})
+		return
+	}
+
+	deleted, err := service.DeleteStudentByRollNumber(rollNumber)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete student"})
+		return
+	}
+	if !deleted {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Student not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Student deleted successfully"})
+}
