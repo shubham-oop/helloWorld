@@ -43,3 +43,18 @@ func InsertStudent(student model.Student) (int, error) {
 	err = stmt.Get(&id, student)
 	return id, err
 }
+
+func DeleteStudentByRollNumber(rollNumber int) (bool, error) {
+	query := `DELETE FROM students WHERE roll_number = $1`
+	result, err := db.DB.Exec(query, rollNumber)
+	if err != nil {
+		return false, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return false, err
+	}
+
+	return rowsAffected > 0, nil
+}

@@ -24,3 +24,7 @@ func CreateStudent(student model.Student) (int, error) {
 
 	return repository.InsertStudent(student)
 }
+
+func DeleteStudentByRollNumber(rollNumber int) (bool, error) {
+	return repository.DeleteStudentByRollNumber(rollNumber)
+}
